@@ -27,7 +27,8 @@ public class MapGenerator : MonoBehaviour
 				Color color = new Color(Random.Range(0f, 0.2f), Random.Range(0.8f, 1f), Random.Range(0f, 0.2f));
 				tileObj.GetComponent<MeshRenderer>().material.color = color;
 				tileObj.transform.SetParent(tilesParent);
-				Tile tile = tileObj.AddComponent<Tile>();
+				Tile tile = tileObj.GetComponent<Tile>();
+				tile.Init();
 				tiles.Add(new Vector2(x, z), tile);
 				tile.tileKey = new Vector2(x, z);
 			}

@@ -6,7 +6,7 @@ public class Rocket : MonoBehaviour
 {
     public QuadraticBezierCurve curve;
     public Vector3 target;
-    public GameObject particleSystem;
+    public GameObject fireBurstParticles;
 
     float timeToMove = 2;
     float timePassed;
@@ -45,7 +45,7 @@ public class Rocket : MonoBehaviour
         //Tile tile = MapGenerator.tiles[new Vector2(Mathf.CeilToInt(transform.position.x), Mathf.CeilToInt(transform.position.z))];
         Tile tile = MapGenerator.tiles[new Vector2(Mathf.CeilToInt(target.x), Mathf.CeilToInt(target.z))];
         tile.ResetTile();
-        GameObject particles = Instantiate(particleSystem);
+        GameObject particles = Instantiate(fireBurstParticles);
         particles.transform.position = target + new Vector3(0, 1, 0);
         foreach (Tile neighbour in tile.innerNeighbours)
         {
