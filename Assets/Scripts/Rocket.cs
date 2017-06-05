@@ -42,7 +42,6 @@ public class Rocket : MonoBehaviour
 
     void Hit()
     {
-        //Tile tile = MapGenerator.tiles[new Vector2(Mathf.CeilToInt(transform.position.x), Mathf.CeilToInt(transform.position.z))];
         Tile tile = MapGenerator.tiles[new Vector2(Mathf.CeilToInt(target.x), Mathf.CeilToInt(target.z))];
         tile.ResetTile();
         GameObject particles = Instantiate(fireBurstParticles);

@@ -22,6 +22,9 @@ public class Destructible : MonoBehaviour
 	public void Damage(int damage)
 	{
 		health -= damage;
-
+		if (health < 1)
+		{
+			GetComponent<Building>().Destroyed();
+		}
 	}
 }

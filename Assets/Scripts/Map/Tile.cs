@@ -56,7 +56,7 @@ public class Tile : MonoBehaviour
 	{
 		GameObject enemy = Instantiate(enemyPrefab);
 		enemy.transform.position = transform.position + new Vector3(0, 1, 0);
-		enemy.GetComponent<Enemy>().target = FindObjectOfType<Base>().gameObject;
+		enemy.GetComponent<Enemy>().target = FindObjectOfType<CityCenter>().gameObject;
 	}
 
 	public void CalculateNeighbours()

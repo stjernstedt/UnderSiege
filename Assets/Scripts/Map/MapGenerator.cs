@@ -7,7 +7,9 @@ public class MapGenerator : MonoBehaviour
 	public int width;
 	public int height;
 	public GameObject tilePrefab;
-	public GameObject basePrefab;
+	public GameObject siloPrefab;
+	public GameObject factoryPrefab;
+	public GameObject residentalPrefab;
 	public int safezoneRange;
 
 	public static Dictionary<Vector2, Tile> tiles = new Dictionary<Vector2, Tile>();
@@ -15,9 +17,12 @@ public class MapGenerator : MonoBehaviour
 
 	public Transform tilesParent;
 
+	Core core;
+
 	// Use this for initialization
 	void Start()
 	{
+		core = FindObjectOfType<Core>();
 		for (int x = 0; x < width; x++)
 		{
 			for (int z = 0; z < height; z++)
@@ -52,7 +57,13 @@ public class MapGenerator : MonoBehaviour
 			}
 		}
 
-		GameObject baseTile = Instantiate(basePrefab);
-		baseTile.transform.position = new Vector3(width / 2, 0.5f, height / 2);
+		GameObject cityCenterTile = Instantiate(siloPrefab);
+		cityCenterTile.transform.position = new Vector3(width / 2, 0.5f, height / 2);
+		GameObject factoryTile = Instantiate(factoryPrefab);
+		factoryTile.transform.position = new Vector3(width / 2 + 1, 0.5f, height / 2);
+		GameObject residentalTile = Instantiate(residentalPrefab);
+		residentalTile.transform.position = new Vector3(width / 2, 0.5f, height / 2 + 1);
+
+		core.GetComponent<UIHandler>().cityCenter = cityCenterTile.GetComponent<CityCenter>();
 	}
 }
