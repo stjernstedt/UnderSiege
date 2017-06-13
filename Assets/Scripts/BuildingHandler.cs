@@ -5,44 +5,102 @@ using UnityEngine;
 
 public class BuildingHandler : MonoBehaviour
 {
+	public GameObject factoryPrefab;
+	public GameObject residentalPrefab;
+
 	Building[] buildings;
-	MapGenerator mapGenerator;
+	List<GameObject> buildableTiles = new List<GameObject>();
+	GameObject currentlyBuilding;
+
+	public bool building = false;
+
+	float timePassed;
 
 	// Use this for initialization
 	void Start()
 	{
-		//mapGenerator = GetComponent<MapGenerator>();
+
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 
+		if (building)
+		{
+			if (timePassed > 0.2f)
+			{
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast(ray, out hit))
+				{
+					if (buildableTiles.Contains(hit.collider.gameObject))
+					{
+						Vector3 buildingPos = hit.collider.transform.position;
+						buildingPos.y = 0.5f;
+						currentlyBuilding.transform.position = buildingPos;
+					}
+				}
+			}
+			timePassed++;
+
+			if (Input.GetMouseButtonDown(0))
+			{
+				//TODO add checks to see if over buildable tile
+				building = false;
+				currentlyBuilding.GetComponent<Building>().enabled = true;
+				currentlyBuilding = null;
+			}
+
+			if (Input.GetMouseButtonDown(1))
+			{
+				foreach (GameObject tile in buildableTiles)
+				{
+					tile.GetComponent<Tile>().ResetColor();
+				}
+				building = false;
+				Destroy(currentlyBuilding);
+			}
+		}
 	}
 
 	public void DrawPlacementGrid()
 	{
+		building = true;
 		buildings = FindObjectsOfType<Building>();
-		List<Tile> tiles = new List<Tile>();
 
 		foreach (Building building in buildings)
 		{
 			foreach (Tile tile in MapGenerator.tiles[new Vector2((int)building.transform.position.x, (int)building.transform.position.z)].innerNeighbours)
 			{
-				tiles.Add(tile);
+				buildableTiles.Add(tile.gameObject);
 			}
 		}
 
-		tiles = tiles.Distinct().ToList();
+		buildableTiles = buildableTiles.Distinct().ToList();
 
 		foreach (Building building in buildings)
 		{
-			tiles.Remove(MapGenerator.tiles[new Vector2((int)building.transform.position.x, (int)building.transform.position.z)]);
+			buildableTiles.Remove(MapGenerator.tiles[new Vector2((int)building.transform.position.x, (int)building.transform.position.z)].gameObject);
 		}
 
-		foreach (Tile tile in tiles)
+		foreach (GameObject tile in buildableTiles)
 		{
 			tile.GetComponent<MeshRenderer>().material.color = Color.cyan;
 		}
+	}
+
+	public void BuildFactory()
+	{
+		DrawPlacementGrid();
+		currentlyBuilding = Instantiate(factoryPrefab);
+
+	}
+
+	public void BuildResidental()
+	{
+		DrawPlacementGrid();
+		currentlyBuilding = Instantiate(residentalPrefab);
+
 	}
 }

@@ -48,8 +48,13 @@ public class Tile : MonoBehaviour
 	{
 		transform.localScale = new Vector3(1, 1, 1);
 		transform.position = originalPosition;
-		material.color = originalColor;
+		ResetColor();
 		Destroy(GetComponent<TileGrower>());
+	}
+
+	public void ResetColor()
+	{
+		material.color = originalColor;
 	}
 
 	void SpawnEnemy()

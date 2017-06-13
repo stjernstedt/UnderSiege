@@ -18,10 +18,14 @@ public class CityCenter : Building
 	float timeBetweenLaunches = 0;
 	float timePassed = 0;
 
+	Core core;
+	BuildingHandler buildingHandler;
+
 	// Use this for initialization
 	void Start()
 	{
-
+		core = FindObjectOfType<Core>();
+		buildingHandler = core.GetComponent<BuildingHandler>();
 	}
 
 	// Update is called once per frame
@@ -36,7 +40,7 @@ public class CityCenter : Building
 
 	void LaunchRocket()
 	{
-		if (timePassed > timeBetweenLaunches)
+		if (timePassed > timeBetweenLaunches && !buildingHandler.building)
 		{
 			if (rockets > 0)
 			{
@@ -68,6 +72,6 @@ public class CityCenter : Building
 
 	public override void Destroyed()
 	{
-		throw new NotImplementedException();
+
 	}
 }
