@@ -7,6 +7,7 @@ public class BuildingHandler : MonoBehaviour
 {
 	public GameObject factoryPrefab;
 	public GameObject residentalPrefab;
+	public LayerMask rayHitLayers;
 
 	Building[] buildings;
 	List<GameObject> buildableTiles = new List<GameObject>();
@@ -46,10 +47,18 @@ public class BuildingHandler : MonoBehaviour
 
 			if (Input.GetMouseButtonDown(0))
 			{
-				//TODO add checks to see if over buildable tile
-				building = false;
-				currentlyBuilding.GetComponent<Building>().enabled = true;
-				currentlyBuilding = null;
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast(ray, out hit, 1000f, rayHitLayers))
+				{
+					if (buildableTiles.Contains(hit.collider.gameObject))
+					{
+						building = false;
+						currentlyBuilding.GetComponent<Building>().enabled = true;
+						currentlyBuilding = null;
+						ClearPlacementGrid();
+					}
+				}
 			}
 
 			if (Input.GetMouseButtonDown(1))
@@ -87,6 +96,14 @@ public class BuildingHandler : MonoBehaviour
 		foreach (GameObject tile in buildableTiles)
 		{
 			tile.GetComponent<MeshRenderer>().material.color = Color.cyan;
+		}
+	}
+
+	void ClearPlacementGrid()
+	{
+		foreach (GameObject tile in buildableTiles)
+		{
+			tile.GetComponent<Tile>().ResetColor();
 		}
 	}
 
