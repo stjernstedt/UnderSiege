@@ -19,9 +19,10 @@ public class Factory : Building
 	void Update()
 	{
 		timePassed += Time.deltaTime;
-		if (timePassed > (60 / rocketsPerMinute))
+		if (timePassed > (60 / rocketsPerMinute) && cityCenter.money > 10)
 		{
 			cityCenter.rockets += 1;
+			cityCenter.money -= 10;
 			timePassed = 0;
 		}
 	}

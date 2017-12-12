@@ -56,8 +56,8 @@ public class BuildingHandler : MonoBehaviour
 						currentlyBuilding.GetComponent<Building>().enabled = true;
 						currentlyBuilding = null;
 						ClearPlacementGrid();
+						//to prevent rocket being fired after placing building
 						StartCoroutine(TurnOffBuildingTimer());
-						//building = false;
 					}
 				}
 			}

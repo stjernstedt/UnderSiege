@@ -21,7 +21,7 @@ public class UIHandler : MonoBehaviour
 	void Update()
 	{
 		timePassed += Time.deltaTime;
-		if (timePassed > 1)
+		if (timePassed > 0.2f)
 		{
 			UpdateUI();
 		}

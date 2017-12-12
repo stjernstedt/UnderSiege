@@ -7,7 +7,7 @@ public class MapGenerator : MonoBehaviour
 	public int width;
 	public int height;
 	public GameObject tilePrefab;
-	public GameObject siloPrefab;
+	public GameObject cityCenterPrefab;
 	public GameObject factoryPrefab;
 	public GameObject residentalPrefab;
 	public int safezoneRange;
@@ -57,12 +57,14 @@ public class MapGenerator : MonoBehaviour
 			}
 		}
 
-		GameObject cityCenterTile = Instantiate(siloPrefab);
+		GameObject cityCenterTile = Instantiate(cityCenterPrefab);
 		cityCenterTile.transform.position = new Vector3(width / 2, 0.5f, height / 2);
 		GameObject factoryTile = Instantiate(factoryPrefab);
 		factoryTile.transform.position = new Vector3(width / 2 + 1, 0.5f, height / 2);
+		factoryTile.GetComponent<Building>().enabled = true;
 		GameObject residentalTile = Instantiate(residentalPrefab);
 		residentalTile.transform.position = new Vector3(width / 2, 0.5f, height / 2 + 1);
+		residentalTile.GetComponent<Building>().enabled = true;
 
 		core.GetComponent<UIHandler>().cityCenter = cityCenterTile.GetComponent<CityCenter>();
 	}
