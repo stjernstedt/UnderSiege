@@ -53,10 +53,11 @@ public class BuildingHandler : MonoBehaviour
 				{
 					if (buildableTiles.Contains(hit.collider.gameObject))
 					{
-						building = false;
 						currentlyBuilding.GetComponent<Building>().enabled = true;
 						currentlyBuilding = null;
 						ClearPlacementGrid();
+						StartCoroutine(TurnOffBuildingTimer());
+						//building = false;
 					}
 				}
 			}
@@ -71,6 +72,12 @@ public class BuildingHandler : MonoBehaviour
 				Destroy(currentlyBuilding);
 			}
 		}
+	}
+
+	IEnumerator TurnOffBuildingTimer()
+	{
+		yield return new WaitForFixedUpdate();
+		building = false;
 	}
 
 	public void DrawPlacementGrid()

@@ -40,7 +40,7 @@ public class CityCenter : Building
 
 	void LaunchRocket()
 	{
-		if (timePassed > timeBetweenLaunches && !buildingHandler.building)
+		if (!buildingHandler.building && timePassed > timeBetweenLaunches)
 		{
 			if (rockets > 0)
 			{
