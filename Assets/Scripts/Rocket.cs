@@ -43,11 +43,13 @@ public class Rocket : MonoBehaviour
     void Hit()
     {
         Tile tile = MapGenerator.tiles[new Vector2(Mathf.CeilToInt(target.x), Mathf.CeilToInt(target.z))];
+		tile.OnHit();
         tile.ResetTile();
         GameObject particles = Instantiate(fireBurstParticles);
         particles.transform.position = target + new Vector3(0, 1, 0);
         foreach (Tile neighbour in tile.innerNeighbours)
         {
+			neighbour.OnHit();
             neighbour.ResetTile();
         }
     }

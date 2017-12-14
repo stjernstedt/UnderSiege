@@ -17,10 +17,17 @@ public class Tile : MonoBehaviour
 
 	public GameObject enemyPrefab;
 
+	CityCenter cityCenter;
+
 	// Use this for initialization
 	void Awake()
 	{
 		material = GetComponent<MeshRenderer>().material;
+	}
+
+	void Start()
+	{
+		cityCenter = FindObjectOfType<CityCenter>();
 	}
 
 	// Update is called once per frame
@@ -42,6 +49,14 @@ public class Tile : MonoBehaviour
 	{
 		originalColor = material.color;
 		originalPosition = transform.position;
+	}
+
+	public void OnHit()
+	{
+		if (transform.localScale.y > 1)
+		{
+			cityCenter.score += (int)transform.localScale.y;
+		}
 	}
 
 	public void ResetTile()

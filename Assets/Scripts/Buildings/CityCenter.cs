@@ -8,6 +8,7 @@ public class CityCenter : Building
 	public GameObject rocketPrefab;
 	public int rockets;
 	public int money;
+	public int score;
 
 	float bezierStart;
 	float bezierMiddle;

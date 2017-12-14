@@ -7,6 +7,7 @@ public class UIHandler : MonoBehaviour
 {
 	public Text rocketsText;
 	public Text moneyText;
+	public Text scoreText;
 
 	public CityCenter cityCenter;
 	float timePassed;
@@ -31,6 +32,7 @@ public class UIHandler : MonoBehaviour
 	{
 		rocketsText.text = "Rockets: " + cityCenter.rockets;
 		moneyText.text = "Money: " + cityCenter.money;
+		scoreText.text = "Score: " + cityCenter.score;
 		timePassed = 0;
 	}
 }
