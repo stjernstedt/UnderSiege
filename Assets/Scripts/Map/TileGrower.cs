@@ -5,7 +5,7 @@ using UnityEngine;
 public class TileGrower : MonoBehaviour
 {
     Tile tile;
-    float growSpeed = 0.3f;
+    float growSpeed = 0.15f;
 
     // Use this for initialization
     void Start()

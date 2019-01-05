@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CityCenter : Building
 {
@@ -33,7 +34,7 @@ public class CityCenter : Building
 	void Update()
 	{
 		timePassed += Time.deltaTime;
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
 		{
 			LaunchRocket();
 		}
